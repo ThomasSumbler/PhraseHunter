@@ -13,6 +13,8 @@
 // For this, we need these references:
 const overlayDiv = document.getElementById('overlay');
 const mainContainer = document.querySelector('div.main-container');
+// Correct/Incorrect background display time
+const backgroundColorTime = 1000;
 
 // The element containing the game over message
 const gameOverMsgEl = document.getElementById("game-over-message");
@@ -70,9 +72,13 @@ const heartListOl = document.getElementById("scoreboard").children[0];
             if (this.checkForWin()) {
                 this.gameOver(true);
             }
+            mainContainer.style.background = "#AAEEAA"
+            setTimeout(clearBackground,backgroundColorTime);
         } else {
             button.classList.add("wrong");
             this.removeLife();
+            mainContainer.style.background = "#EEAAAA"
+            setTimeout(clearBackground,backgroundColorTime);
         }
     }
     // removes a game life
@@ -142,3 +148,11 @@ function restoreButtons() {
        button.disabled = false;
        });
 }
+
+// Removes color from the mainContainer background if there is any.
+// also clears special button styling
+function clearBackground() {
+    mainContainer.style.background = "#FFFFFF";
+}
+
+document.addEventListener("mouseleave",clearBackground());

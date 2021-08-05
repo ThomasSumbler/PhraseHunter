@@ -25,16 +25,31 @@ buttonList.forEach(button => {
     button.addEventListener("click", e => {
         game.handleInteraction(button.textContent);
         });
+    // If there is a background color indicating the correctness
+    // of the last guess, remove it when the mouse 
+    // hovers over a new button (would have preferred to activate
+    // when the mouse leaves the chosen button, but 'mouseleave'
+    // and 'mouseout' apparently don't trigger for disabled buttons
+    // https://github.com/facebook/react/issues/4251
+    // and this is consistent with my testing also)
+    button.addEventListener("mouseenter",e => {
+        clearBackground();
+        });
     });
     
 // keyboard interactions
 document.addEventListener('keyup', e => {
     // if the overlayDiv has a parent, the game hasn't started
-    // So, start the game if a key is pressed.
+    // So, start the game if enter is pressed, and do nothing
+    // for any other key
     if (overlayDiv.parentElement) {
-        game.startGame();
+        if (e.key === "Enter") {
+            game.startGame();
+        }
         return;
     }
+    // if there is background for the last guess, clear it
+    clearBackground();
     if (e.key.match(/^[A-Za-z]$/)) {
         const key = e.key.toLowerCase();
         const correspondingButton = getButton(key);

@@ -13,7 +13,7 @@
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
   --font-size-medium: 20px;
-  --transition: all .2s ease-in-out;
+  --transition: all 0.2s ease-in-out;
 }
 
 /* main */
@@ -58,6 +58,14 @@ button {
   -o-transition: var(--transition);
   transition: var(--transition);
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button.key:not(.wrong):not(.chosen):hover {
+    background-color: #00FF00;
 }
 
 #btn__reset {
@@ -107,6 +115,9 @@ button {
   width: 15px;
 }
 
+.hide {
+    user-select: none;
+}
 
 
 .show {
@@ -137,9 +148,22 @@ button {
   color: #FFFFFF;
 }
 
+.chosen:hover {
+  background:#C00000;
+  border-radius: 5px;
+  font-size: var(--font-size-medium);
+  color: #C00000;
+
+
+}
+
 .wrong {
   background: #f7a964;
   color: #FFFFFF;
+}
+.wrong:hover {
+  background: #C00000;
+  color: #C00000;
 }
 
 .btn__reset {
